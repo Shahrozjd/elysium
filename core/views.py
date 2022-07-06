@@ -11,7 +11,7 @@ from django.http import HttpResponse, JsonResponse
 
 
 def index(request):
-    return HttpResponse('Hello')
+    return HttpResponse('Elysium GYM')
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
@@ -27,6 +27,57 @@ class ProfileViewSet(viewsets.ModelViewSet):
             return JsonResponse(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+    @action(methods=['post'], detail=False)
+    def signup(self, request):
+        full_name=request.data.get('full_name', '')
+        company_name=request.data.get('company_name', '')
+        country=request.data.get('country', '')
+        street_address=request.data.get('street_address', '')
+        password=request.data.get('password', '')
+        city=request.data.get('city', '')
+        state=request.data.get('state', '')
+        post_code=request.data.get('post_code', '')
+        phone=request.data.get('phone', '')
+        email=request.data.get('email', '')
+        occupation=request.data.get('occupation', '')
+        gender=request.data.get('gender', '')
+        father_name=request.data.get('father_name', '')
+        blood_group=request.data.get('blood_group', '')
+        birth_date=request.data.get('birth_date', '')
+        religion=request.data.get('religion', '')
+        nationality=request.data.get('nationality', '')
+        hobby=request.data.get('hobby', '')
+        source=request.data.get('source', '')
+        membership_id=request.data.get('membership', '')
+        try:
+            membership = Membership.objects.get(id=membership_id)
+            Profile.objects.create(
+                full_name=full_name,
+                company_name=company_name,
+                country=country,
+                street_address=street_address,
+                password=password,
+                city=city,
+                state=state,
+                post_code=post_code,
+                phone=phone,
+                email=email,
+                occupation=occupation,
+                gender=gender,
+                father_name=father_name,
+                blood_group=blood_group,
+                birth_date=birth_date,
+                religion=religion,
+                nationality=nationality,
+                hobby=hobby,
+                source=source,
+                membership=membership,
+            )
+            return Response(data={"res":"Member added successfully."}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(data={ "res": str(e) }, status=status.HTTP_404_NOT_FOUND)
 
 
 class MembershipViewSet(viewsets.ModelViewSet):

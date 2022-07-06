@@ -5,9 +5,19 @@ from django.utils.html import format_html
 from .models import *
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'city', 'phone', 'approved', 'dues_paid')
-    list_filter = ('gender', 'city')
-    search_fields = ['first_name', 'phone']
+    list_display = ('full_name', 'city', 'phone', 'profile_approved', 'dues_paid')
+    list_filter = ('profile_approved', 'dues_paid', 'gender', 'city')
+    search_fields = ['full_name', 'phone']
+
+    def get_queryset(self, request):
+        objects = Profile.objects.all()
+        for obj in objects:
+            if  obj.membership_updated_on is not None and obj.membership_expires_on is not None:
+                if date.today() < obj.membership_expires_on:
+                    obj.dues_paid = True
+                else:
+                    obj.dues_paid = False
+        return Profile.objects.all()
 
 
 class MembershipAdmin(admin.ModelAdmin):
@@ -18,7 +28,7 @@ class MembershipAdmin(admin.ModelAdmin):
 
 class AttendanceAdmin(admin.ModelAdmin):
     list_display = ('member', 'attendance_time')
-    list_filter = ('member__first_name',)
+    list_filter = ('member__full_name',)
 
 
 admin.site.register(Profile, ProfileAdmin)

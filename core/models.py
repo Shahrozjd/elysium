@@ -1,6 +1,5 @@
 from django.db import models
-from datetime import datetime
-
+from datetime import datetime,timedelta, date
 
 class Membership(models.Model):
     name = models.CharField(max_length=225, blank=True)
@@ -15,17 +14,17 @@ class Membership(models.Model):
 
 
 class Profile(models.Model):
-    first_name = models.CharField(max_length=225, blank=True)
-    last_name = models.CharField(max_length=225, blank=True)
+    full_name = models.CharField(max_length=225, blank=True)
+    father_name = models.CharField(max_length=225, blank=True)
     company_name = models.CharField(max_length=225, blank=True)
-    Country = models.CharField(max_length=225, blank=True)
-    street_address = models.TextField(max_length=500, blank=True)
-    password = models.CharField(max_length=25, blank=True)
-    city = models.CharField(max_length=255, blank=True)
-    state = models.CharField(max_length=255, blank=True)
-    Post_code = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=11, blank=True, unique=True)
     email = models.CharField(max_length=50, blank=True)
+    street_address = models.TextField(max_length=500, blank=True)
+    city = models.CharField(max_length=255, blank=True)
+    state = models.CharField(max_length=255, blank=True)
+    country = models.CharField(max_length=225, blank=True)
+    post_code = models.CharField(max_length=255, blank=True)
+    password = models.CharField(max_length=25, blank=True)
     occupation = models.CharField(max_length=225, blank=True)
     Gender_CHOICES = (
         ('male', "Male"),
@@ -34,7 +33,6 @@ class Profile(models.Model):
     gender = models.CharField(max_length=25,
                   choices=Gender_CHOICES,
                   default='male')    
-    father_name = models.CharField(max_length=225, blank=True)
     blood_group = models.CharField(max_length=25, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     religion = models.CharField(max_length=25, blank=True)
@@ -58,16 +56,27 @@ class Profile(models.Model):
                   choices=PURPOSE_CHOICES,
                   default='fitness')
 
-    approved = models.BooleanField(default=False)
+    profile_approved = models.BooleanField(default=False)
     dues_paid = models.BooleanField(default=False)
+    membership = models.ForeignKey(Membership, on_delete=models.SET_NULL, null=True)
     membership_updated_on = models.DateField(null=True, blank=True)
-    Membership = models.ForeignKey(Membership, on_delete=models.SET_NULL, null=True)
+    membership_expires_on = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.full_name}'
+    
+    def save(self, *args, **kwargs):
+        if self.membership_updated_on is not None:
+            self.membership_expires_on = self.membership_updated_on + timedelta(days=30)
+        if  self.membership_updated_on is not None and self.membership_expires_on is not None:
+            if date.today() < self.membership_expires_on:
+              self.dues_paid = True
+            else:
+              self.dues_paid = False
 
+        super(Profile,self).save(*args, **kwargs)
 
 class Attendance(models.Model):
     member = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -76,13 +85,7 @@ class Attendance(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.member.first_name
-
-    # def save(self, *args, **kwargs):
-    #     self.attendance_time = 
-    #     super(Tracking,self).save(*args, **kwargs)
-
-
+        return self.member.full_name
 
 
 
