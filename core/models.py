@@ -65,7 +65,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.full_name}'
+        return f'{self.full_name} ({self.id})'
     
     def save(self, *args, **kwargs):
         if self.membership_updated_on is not None:
