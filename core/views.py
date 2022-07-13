@@ -48,7 +48,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
         religion=request.data.get('religion', '')
         nationality=request.data.get('nationality', '')
         hobby=request.data.get('hobby', '')
-        source=request.data.get('source', '')
+        purpose=request.data.get('purpose', '')
         membership_id=request.data.get('membership', '')
         try:
             membership = Membership.objects.get(id=membership_id)
@@ -71,7 +71,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
                 religion=religion,
                 nationality=nationality,
                 hobby=hobby,
-                source=source,
+                purpose=purpose,
                 membership=membership,
             )
             return Response(data={"res":"Member added successfully."}, status=status.HTTP_200_OK)
@@ -95,3 +95,12 @@ class AttendanceViewSet(viewsets.ModelViewSet):
         member = Profile.objects.get(id=user_id)
         Attendance.objects.create(member=member)
         return Response(status=status.HTTP_200_OK)
+
+
+def invoice_print(request):
+    id = request.GET.get('id','')
+    invoice = Invoice.objects.get(id=id)
+    context={
+        'invoice': 1,
+    }
+    return render(request, 'print.html', context=context)
