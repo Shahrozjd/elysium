@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ngm7cv24v+s-^l5u_5ptp5ff()))+giyj$608_@nf(9g_t7il&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['elysiumgym.pk']
 
 
 # Application definition
@@ -133,6 +133,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [ os.path.join(BASE_DIR,'static') ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
+STATIC_ROOT = "home/bilalelysium/public_html/static/"
+
+
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
