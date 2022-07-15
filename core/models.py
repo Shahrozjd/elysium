@@ -38,13 +38,21 @@ class Profile(models.Model):
     religion = models.CharField(max_length=25, blank=True)
     nationality = models.CharField(max_length=25, blank=True)
     hobby = models.CharField(max_length=225, blank=True)
+    SOURCE_CHOICES = (
+        ('advertisement', "Advertisement"),
+        ('social_media', "Social Media"),
+        ('other', "Other"),
+    )
+    source = models.CharField(max_length=225,
+                  choices=SOURCE_CHOICES,
+                  default='advertisement')
     PURPOSE_CHOICES = (
         ('fitness', "Fitness"),
         ('reduce_weight', "Reduce Weight"),
         ('increase_weight', "Increase Weight"),
         ('hyper_trophy', "Hyper Trophy"),
     )
-    purpose = models.CharField(max_length=225,
+    source = models.CharField(max_length=225,
                   choices=PURPOSE_CHOICES,
                   default='fitness')
 
@@ -60,11 +68,6 @@ class Profile(models.Model):
         return f'{self.full_name} ({self.id})'
     
     def save(self, *args, **kwargs):
-        if self.pk:
-            profile = Profile.objects.get(id=self.pk)
-            if profile.membership_updated_on != self.membership_updated_on:
-                Invoice.objects.create(member=profile, amount=profile.membership.price, transaction='credit')
-
         if self.membership_updated_on is not None:
             self.membership_expires_on = self.membership_updated_on + timedelta(days=30)
         if  self.membership_updated_on is not None and self.membership_expires_on is not None:
@@ -85,19 +88,42 @@ class Attendance(models.Model):
         return self.member.full_name
 
 
-class Invoice(models.Model):
-    member = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
-    amount = models.PositiveIntegerField(default=0, blank=True) 
-    comments = models.TextField(max_length=500, blank=True)
-    LEDGER_CHOICES = (
-        ('debit', "debit"),
-        ('credit', "credit"),
-    )
-    transaction = models.CharField(max_length=9,
-                  choices=LEDGER_CHOICES,
-                  default='credit')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.member.full_name
+# class Invoice(models.Model):
+#     salesman = models.ForeignKey(Profile, on_delete=models.CASCADE)
+#     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+#     total = models.PositiveIntegerField(default=0, blank=True)
+#     comments = models.TextField(max_length=500, blank=True)
+#     STATUS_CHOICES = (
+#         ('placed', "placed"),
+#         ('shipped', "shipped"),
+#         ('blocked', "blocked"),
+#         ('cancelled', "cancelled"),
+#         ('delivered', "delivered"),
+#     )
+#     status = models.CharField(max_length=10,
+#                   choices=STATUS_CHOICES,
+#                   default='placed')
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     def __str__(self):
+#         return f"{self.id}"
+
+
+# class Ledger(models.Model):
+#     member = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
+#     amount = models.PositiveIntegerField(default=0, blank=True) 
+#     comments = models.TextField(max_length=500, blank=True)
+#     LEDGER_CHOICES = (
+#         ('debit', "debit"),
+#         ('credit', "credit"),
+#     )
+#     transaction = models.CharField(max_length=9,
+#                   choices=LEDGER_CHOICES,
+#                   default='debit')
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     def __str__(self):
+#         return self.member
