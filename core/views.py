@@ -91,10 +91,14 @@ class AttendanceViewSet(viewsets.ModelViewSet):
 
     @action(methods=['post'], detail=False)
     def add(self, request):
-        user_id=request.GET.get('user', '')
-        member = Profile.objects.get(id=user_id)
-        Attendance.objects.create(member=member)
-        return Response(status=status.HTTP_200_OK)
+        try:
+            user_id=request.GET.get('user', '')
+            member = Profile.objects.get(id=user_id)
+            Attendance.objects.create(member=member)
+            return Response(data={"res":"Attendance added successfully."}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(data={ "res": str(e) }, status=status.HTTP_404_NOT_FOUND)
 
 
 def invoice_print(request):

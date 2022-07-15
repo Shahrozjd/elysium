@@ -5,8 +5,8 @@ from django.utils.html import format_html
 from .models import *
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'city', 'phone', 'profile_approved', 'dues_paid')
-    list_filter = ('profile_approved', 'dues_paid', 'gender', 'city')
+    list_display = ('id', 'full_name', 'city', 'phone', 'membership', 'profile_approved', 'dues_paid')
+    list_filter = ('profile_approved', 'dues_paid', 'gender', 'membership', 'city')
     search_fields = ['full_name', 'phone']
 
     def get_queryset(self, request):
@@ -17,7 +17,7 @@ class ProfileAdmin(admin.ModelAdmin):
                     obj.dues_paid = True
                 else:
                     obj.dues_paid = False
-        return Profile.objects.all()
+        return Profile.objects.all().order_by('id')
 
 
 class MembershipAdmin(admin.ModelAdmin):
