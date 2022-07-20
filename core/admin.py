@@ -124,7 +124,7 @@ class InvoiceMonthFilter(admin.SimpleListFilter):
 
 
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ('member', 'amount', 'transaction', 'print_invoice')
+    list_display = ('member', 'amount', 'transaction', 'created_at', 'print_invoice')
     search_fields = ['member__full_name', 'member__id']
     list_filter = (InvoiceMonthFilter, InvoiceYearFilter, 'member__full_name')
 

@@ -2,19 +2,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Receipt</title>
+
     <style>
-    table, th, td {
-        border: 2px solid black !important;
-        border-collapse: collapse;
-        padding-left: 3px;
-    }
- 
+
     @media print {
         #printPageButton {
             display: none;
         }
     }
- 
     .button {
         background-color: #f5a442; 
         border: none;
@@ -27,23 +28,89 @@
         margin: 4px 2px;
         cursor: pointer;
     }
+    * {
+        font-size: 12px;
+        font-family: 'Times New Roman';
+    }
+    
+    td,
+    th,
+    tr,
+    table {
+        border-top: 2px solid black !important;
+        border-collapse: collapse;
+        padding-left: 3px;
+    }
+    
+    td.description,
+    th.description {
+        width: 75px;
+        max-width: 75px;
+    }
+    
+    td.quantity,
+    th.quantity {
+        width: 40px;
+        max-width: 40px;
+        word-break: break-all;
+    }
+    
+    td.price,
+    th.price {
+        width: 40px;
+        max-width: 40px;
+        word-break: break-all;
+    }
+    
+    .centered {
+        text-align: center;
+        align-content: center;
+    }
+    
+    .ticket {
+        width: 155px;
+        max-width: 155px;
+    }
+    
+    img {
+        max-width: inherit;
+        width: inherit;
+    }
     </style>
 </head>
-<body>
-    <div>
-        <div>
-            <img width = "100px" height = "100px" src="{% static 'images/logo.png' %}" alt="Elysium GYM">
-        </div>
-        <div>
-            <p>Elysium, Islamabad</p>
-        </div>
+<body onload="window.print();  window.close();">
+    
+    <div class="ticket">
+        <img width = "100px" height = "100px" src="{% static 'images/logo.png' %}" alt="Elysium GYM">
+        <p class="centered">ELYSIUM, Islamabad
+            <br>ID: {{invoice.id}}
+            <br>Name: {{invoice.member.full_name}}
+            <br>{{invoice.updated_at}}</p>
+        <table>
+            <thead>
+                <tr>
+                    <td class="quantity">#</td>
+                    <td class="description">Item</td>
+                    <td class="price">Rs.</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="quantity">1</td>
+                    <td class="description">{{invoice.member.membership}}</td>
+                    <td class="price">{{invoice.member.membership.price}}</td>
+                </tr>
+                <tr>
+                    <td class="quantity"></td>
+                    <td class="description">TOTAL</td>
+                    <td class="price">{{invoice.member.membership.price}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <p class="centered">Thanks for your purchase!
+            <br>elysiumgym.pk/</p>
     </div>
-    <p><strong>Date: </strong>{{invoice.updated_at}}</p>
-    <p><strong>Invoice # </strong>{{invoice.id}}</p>
-
-
-    <h3><strong>Total: </strong>{{invoice.total}}</h3>
-    <button class="button" id="printPageButton" onclick="window.print()">Print Invoice</button>
-
+    {% comment %} <button class="button" id="printPageButton" onclick="window.print()">Print Invoice</button> {% endcomment %}
 </body>
 </html>

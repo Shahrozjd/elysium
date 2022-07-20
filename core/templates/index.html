@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Elysium GYM</title>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="The Elysium GYM Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- //for-mobile-apps -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<!-- font-awesome icons -->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+	<!-- //font-awesome icons -->
+	<!-- js -->
+	<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+	<!-- //js -->
+	<link
+		href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic'
+		rel='stylesheet' type='text/css'>
+	<link
+		href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+		rel='stylesheet' type='text/css'>
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+			});
+		});
+	</script>
+	<!-- start-smoth-scrolling -->
+</head>
+
+<body>
+	<!-- header -->
+	<div class="agileits_header">
+		<div class="container">
+			<div class="w3l_offers">
+			</div>
+			<div class="agile-login">
+				<ul>
+					<li><a href="#"> Create Account </a></li>
+					<li><a href="#">Login</a></li>
+					<li><a href="#">Help</a></li>
+
+				</ul>
+			</div>
+
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+
+	<div class="logo_products">
+		<div class="container">
+			<div class="w3ls_logo_products_left1">
+
+			</div>
+			<div class="w3ls_logo_products_left">
+				<a href="#">
+					<img src="{% static 'images/logo.png' %}" alt=" " class="img-responsive">
+				</a>
+			</div>
+			<div class="w3l_search">
+
+			</div>
+
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<!-- //header -->
+	<!-- navigation -->
+	<div class="navigation-agileits">
+		<div class="container"> 
+			<nav class="navbar navbar-default">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header nav_2">
+					<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse"
+						data-target="#bs-megadropdown-tabs">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#" class="act">Home</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">Shipping</a></li>
+						<li><a href="#">Misc</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+
+	<!-- //navigation -->
+
+
+	{% load static %}
+		<!-- breadcrumbs -->
+		<div class="breadcrumbs">
+			<div class="container">
+				<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+					<li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				</ol>
+			</div>
+		</div>
+		<!-- //breadcrumbs -->
+
+	<!--banner-bottom-->
+	<div class="ban-bottom-w3l">
+		<div class="container">
+			<div class="col-md-4 products-left">
+				<div class="categories">
+					<ul class="cate">
+						<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i aria-hidden="true" ></i><h2>Categories <i class="fa fa-arrow-down"></i></h2></a>
+								<ul class="dropdown-menu">
+									<li><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i>Lotions & Potions</a></li>
+									<li><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i>Stubs & Soaps</a></li>
+									<li><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i>Salts & Socks</a></li>
+									<li><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i>Candles & Herbs</a></li>
+									<li><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i>Special Creations</a></li>
+								</ul>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="col-md-4 ban-bottom3">
+				<div class="ban-top" style="border:1px solid black; padding-top: 4em;padding-bottom: 4em">
+					<div class="snipcart-item block">
+						<div class="snipcart-thumb">
+							<a href="#">
+								<h3>Lotions<br>&<br>Potions</h3>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="ban-img" style="border:1px solid black; padding-top: 4em;padding-bottom: 4em">
+					<div class="snipcart-item block">
+						<div class="snipcart-thumb">
+							<a href="#">
+								<h3>Salts <br>&<br> Socks</h3>
+							</a>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+			<div class="col-md-4 ban-bottom3">
+				<div class="ban-top" style="border:1px solid black; padding-top: 4em;padding-bottom: 4em">
+					<div class="snipcart-item block">
+						<div class="snipcart-thumb">
+							<a href="#">
+								<h3>Stubs <br>&<br> Soaps</h3>
+							</a>
+						</div>
+					</div>
+
+				</div>
+				<div class="ban-img" style="border:1px solid black; padding-top: 4em;padding-bottom: 4em">
+					<div class="snipcart-item block">
+						<div class="snipcart-thumb">
+							<a href="#">
+								<h3>Candles <br>&<br> Herbs</h3>
+							</a>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!--Footer-->
+
+</body>
+
+</html>

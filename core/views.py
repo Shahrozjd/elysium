@@ -11,7 +11,7 @@ from django.http import HttpResponse, JsonResponse
 
 
 def index(request):
-    return HttpResponse('Elysium GYM')
+    return render(request, 'index.html')
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
@@ -105,6 +105,6 @@ def invoice_print(request):
     id = request.GET.get('id','')
     invoice = Invoice.objects.get(id=id)
     context={
-        'invoice': 1,
+        'invoice': invoice,
     }
     return render(request, 'print.html', context=context)
