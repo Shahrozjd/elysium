@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime,timedelta, date
 
+
 class Membership(models.Model):
     name = models.CharField(max_length=225, blank=True)
     description = models.TextField(max_length=500, blank=True)
@@ -75,6 +76,7 @@ class Profile(models.Model):
 
         super(Profile,self).save(*args, **kwargs)
 
+
 class Attendance(models.Model):
     member = models.ForeignKey(Profile, on_delete=models.CASCADE)
     attendance_time = models.DateTimeField(default=datetime.now, blank=True)
@@ -83,6 +85,12 @@ class Attendance(models.Model):
 
     def __str__(self):
         return self.member.full_name
+
+    def save(self, *args, **kwargs):
+        qs_date = self.attendance_time.date()
+        query_result = Attendance.objects.filter(attendance_time__date=qs_date)
+        if query_result.count() == 0:
+            super(Attendance,self).save(*args, **kwargs)
 
 
 class Invoice(models.Model):

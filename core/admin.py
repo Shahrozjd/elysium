@@ -33,9 +33,10 @@ class YearFilter(admin.SimpleListFilter):
         qs = model_admin.model.objects.exclude(attendance_time=None).order_by(
             "attendance_time"
         )
-        first_year = qs[0].attendance_time.year
-        current_year = datetime.now().year
-        return [(y, y) for y in range(first_year, current_year + 1)]
+        if qs:
+            first_year = qs[0].attendance_time.year
+            current_year = datetime.now().year
+            return [(y, y) for y in range(first_year, current_year + 1)]
 
     def queryset(self, request, queryset):
         if self.value():
@@ -84,9 +85,10 @@ class InvoiceYearFilter(admin.SimpleListFilter):
         qs = model_admin.model.objects.exclude(created_at=None).order_by(
             "created_at"
         )
-        first_year = qs[0].created_at.year
-        current_year = datetime.now().year
-        return [(y, y) for y in range(first_year, current_year + 1)]
+        if qs:
+            first_year = qs[0].created_at.year
+            current_year = datetime.now().year
+            return [(y, y) for y in range(first_year, current_year + 1)]
 
     def queryset(self, request, queryset):
         if self.value():
