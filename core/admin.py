@@ -6,10 +6,12 @@ from .models import *
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('profile_picture', 'id', 'full_name', 'city', 'phone', 'membership', 'profile_approved', 'dues_paid')
+    list_display_links = ('profile_picture', 'id', 'full_name', 'city', 'phone', 'membership', 'profile_approved', 'dues_paid')
     list_filter = ('profile_approved', 'dues_paid', 'gender', 'membership', 'city')
     search_fields = ['full_name', 'phone']
     readonly_fields = ["profile_picture",]
     exclude = ('image',)
+    
 
     def get_queryset(self, request):
         objects = Profile.objects.all()
