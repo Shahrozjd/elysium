@@ -8,6 +8,8 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'full_name', 'city', 'phone', 'membership', 'profile_approved', 'dues_paid')
     list_filter = ('profile_approved', 'dues_paid', 'gender', 'membership', 'city')
     search_fields = ['full_name', 'phone']
+    readonly_fields = ["profile_picture",]
+    exclude = ('image',)
 
     def get_queryset(self, request):
         objects = Profile.objects.all()
@@ -18,6 +20,9 @@ class ProfileAdmin(admin.ModelAdmin):
                 else:
                     obj.dues_paid = False
         return Profile.objects.all().order_by('id')
+    
+    def profile_picture(self, obj):
+        return format_html('<img src="data:;base64,{}">', obj.image)
 
 
 class MembershipAdmin(admin.ModelAdmin):

@@ -50,6 +50,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
         hobby=request.data.get('hobby', '')
         purpose=request.data.get('purpose', '')
         membership_id=request.data.get('membership', '')
+        image=request.data.get('image', '')
         try:
             membership = Membership.objects.get(id=membership_id)
             Profile.objects.create(
@@ -72,6 +73,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
                 nationality=nationality,
                 hobby=hobby,
                 purpose=purpose,
+                image=image,
                 membership=membership,
             )
             return Response(data={"res":"Member added successfully."}, status=status.HTTP_200_OK)
