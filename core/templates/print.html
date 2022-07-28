@@ -81,6 +81,7 @@
 <body onload="window.print();">
     
     <div class="ticket">
+        <h1 class="centered">Customer Copy</h1>
         <img width = "100px" height = "100px" src="{% static 'images/logo.png' %}" alt="Elysium GYM">
         <p class="centered">ELYSIUM, Islamabad
             <br>ID: {{invoice.id}}
@@ -111,6 +112,40 @@
         <p class="centered">Thanks for your purchase!
             <br>elysiumgym.pk/</p>
     </div>
-    {% comment %} <button class="button" id="printPageButton" onclick="window.print()">Print Invoice</button> {% endcomment %}
+    <h1>------------------------------------</h1>
+
+    <div class="ticket">
+        <h1 class="centered">GYM Copy</h1>
+        <img width = "100px" height = "100px" src="{% static 'images/logo.png' %}" alt="Elysium GYM">
+        <p class="centered">ELYSIUM, Islamabad
+            <br>ID: {{invoice.id}}
+            <br>Name: {{invoice.member.full_name}}
+            <br>{{invoice.updated_at}}</p>
+        <table>
+            <thead>
+                <tr>
+                    <td class="quantity">#</td>
+                    <td class="description">Item</td>
+                    <td class="price">Rs.</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="quantity">1</td>
+                    <td class="description">{{invoice.member.membership}}</td>
+                    <td class="price">{{invoice.member.membership.price}}</td>
+                </tr>
+                <tr>
+                    <td class="quantity"></td>
+                    <td class="description">TOTAL</td>
+                    <td class="price">{{invoice.member.membership.price}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <p class="centered">Thanks for your purchase!
+            <br>elysiumgym.pk/</p>
+    </div>
+
 </body>
 </html>

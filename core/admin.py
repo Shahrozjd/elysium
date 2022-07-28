@@ -24,7 +24,7 @@ class ProfileAdmin(admin.ModelAdmin):
         return Profile.objects.all().order_by('id')
     
     def profile_picture(self, obj):
-        return format_html('<img src="data:;base64,{}">', obj.image)
+        return format_html('<img height="100px" width="100px" src="data:;base64,{}">', obj.image)
 
 
 class MembershipAdmin(admin.ModelAdmin):
